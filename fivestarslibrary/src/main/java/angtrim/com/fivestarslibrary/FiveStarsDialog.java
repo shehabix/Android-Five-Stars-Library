@@ -30,6 +30,9 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
     private final Context context;
     private boolean isForceMode = false;
     SharedPreferences sharedPrefs;
+    private String negativeButtonText;
+    private String positiveButtonText;
+    private String neverButtonText;
     private String supportEmail;
     private TextView contentTextView;
     private RatingBar ratingBar;
@@ -40,7 +43,6 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
     private int upperBound = 4;
     private NegativeReviewListener negativeReviewListener;
     private ReviewListener reviewListener;
-
 
     public FiveStarsDialog(Context context,String supportEmail){
         this.context = context;
@@ -77,9 +79,9 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
 
         alertDialog = builder.setTitle(titleToAdd)
                 .setView(dialogView)
-                .setNegativeButton(DEFAULT_NEGATIVE,this)
-                .setPositiveButton(DEFAULT_POSITIVE,this)
-                .setNeutralButton(DEFAULT_NEVER,this)
+                .setNegativeButton(getNegativeButtonText(), this)
+                .setPositiveButton(getPositiveButtonText(), this)
+                .setNeutralButton(getNeverButtonText(), this)
                 .create();
     }
 
@@ -218,4 +220,33 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
         return this;
     }
 
+    private String getNegativeButtonText() {
+        return negativeButtonText != null ? negativeButtonText : DEFAULT_NEGATIVE;
+    }
+
+    private String getPositiveButtonText() {
+        return positiveButtonText != null ? positiveButtonText : DEFAULT_POSITIVE;
+    }
+
+    private String getNeverButtonText() {
+        return neverButtonText != null ? neverButtonText : DEFAULT_NEVER;
+    }
+
+    public FiveStarsDialog setNegativeButtonText(String negativeButtonText) {
+        this.negativeButtonText = negativeButtonText;
+
+        return this;
+    }
+
+    public FiveStarsDialog setPositiveButtonText(String positiveButtonText) {
+        this.positiveButtonText = positiveButtonText;
+
+        return this;
+    }
+
+    public FiveStarsDialog setNeverButtonText(String neverButtonText) {
+        this.neverButtonText = neverButtonText;
+
+        return this;
+    }
 }
